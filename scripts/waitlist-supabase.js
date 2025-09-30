@@ -3,6 +3,8 @@ class WaitlistSupabase {
     constructor() {
         // Edge Function URL - no sensitive credentials exposed!
         this.edgeFunctionUrl = 'https://srhffhqehbvtpmquecuv.supabase.co/functions/v1/submit-waitlist';
+        // Public anon key (safe to expose - limited by RLS policies)
+        this.anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyaGZmaHFlaGJ2dHBtcXVlY3V2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5MzE5MzYsImV4cCI6MjA3NDUwNzkzNn0.td7agrQiZyy5WZQd-h8Zv5WbyL-RQGv6rP81kQ_IWUY';
     }
 
     async submitEmail(email) {
@@ -10,7 +12,8 @@ class WaitlistSupabase {
             const response = await fetch(this.edgeFunctionUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.anonKey}`
                 },
                 body: JSON.stringify({
                     email: email
