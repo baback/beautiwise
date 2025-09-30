@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautiWise Chat - Personalized Beauty Consultation</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/logo/sqr-logo-accent.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/chat.css">
+    
+    <style>
+        /* Custom loading animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes progress-fill-1 {
+            0% { width: 0%; }
+            33% { width: 100%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes progress-fill-2 {
+            0% { width: 0%; }
+            33% { width: 0%; }
+            66% { width: 100%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes progress-fill-3 {
+            0% { width: 0%; }
+            66% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes typing {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+        
+        .animate-progress-1 {
+            animation: progress-fill-1 4s ease-in-out infinite;
+        }
+        
+        .animate-progress-2 {
+            animation: progress-fill-2 4s ease-in-out infinite;
+        }
+        
+        .animate-progress-3 {
+            animation: progress-fill-3 4s ease-in-out infinite;
+        }
+        
+        .typing-text {
+            animation: typing 2s ease-in-out infinite;
+        }
+        
+        /* Smooth transitions */
+        #rightSidebarLoading {
+            transition: all 0.5s ease-in-out;
+        }
+        
+        #productsSection, #articlesSection {
+            transition: all 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden">
+    
+    <div class="flex h-screen">
+        <!-- Left Sidebar - Fixed Sticky -->
+        <div class="w-16 bg-[#F1F0ED] flex flex-col items-center py-6 space-y-6 flex-shrink-0">
+            <!-- Logo -->
+            <div class="relative group">
+                <img src="../assets/logo/sqr-logo-accent.svg" alt="BeautiWise" class="w-8 h-8 opacity-90">
+                <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                    BeautiWise
+                </div>
+            </div>
+            
+            <!-- Navigation Items -->
+            <nav class="flex flex-col space-y-4">
+                <!-- Profile -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-user text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Profile
+                    </div>
+                </div>
+                
+                <!-- New Chat -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-plus text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        New Chat
+                    </div>
+                </div>
+                
+                <!-- Explore -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-compass text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Explore
+                    </div>
+                </div>
+                
+                <!-- History -->
+                <div class="relative group">
+                    <button class="w-10 h-10 bg-[#68645F]/20 hover:bg-[#68645F]/30 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-history text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        History
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Bottom Items -->
+            <div class="flex-1 flex flex-col justify-end">
+                <!-- Help -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-question-circle text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Help
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Left Side - Chat Interface -->
+        <div class="w-1/2 bg-white flex flex-col">
+            
+            
+            <!-- Chat Messages Area -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="chatMessages">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            
+            <!-- Chat Input Box -->
+            <div class="p-4 flex-shrink-0">
+                <div id="chatBox" class="bg-white/90 backdrop-blur-sm border border-[#F1F0ED] rounded-2xl shadow-lg transition-all duration-100">
+                    <!-- Top Section - Textarea -->
+                    <div class="p-4 pb-0">
+                        <textarea 
+                            id="messageInput"
+                            placeholder="Type your message..."
+                            class="w-full px-0 py-2 border-0 outline-none focus:outline-none focus:ring-0 focus:border-0 focus:shadow-none bg-transparent text-sm placeholder-gray-400 resize-none transition-all duration-200"
+                            rows="2"
+                            style="border: none !important; outline: none !important; box-shadow: none !important;"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Bottom Section - Actions -->
+                    <div class="flex items-center justify-between p-3 pt-2 border-t border-gray-100">
+                        <!-- Bottom Left: Attach -->
+                        <div class="flex items-center space-x-2">
+                            <button title="Attach file" class="w-7 h-7 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-paperclip text-gray-500 text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Bottom Right: Voice + Send -->
+                        <div class="flex items-center space-x-2">
+                            <button title="Voice message" class="w-7 h-7 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-microphone text-gray-500 text-xs"></i>
+                            </button>
+                            <button id="sendMessageBtn" title="Send message" class="w-7 h-7 bg-[#68645F] hover:bg-[#5a5651] rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-arrow-up text-white text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Right Side - Products & Articles -->
+        <div class="w-1/2 overflow-y-auto bg-[#F1F0ED] rounded-l-[36px]">
+            
+            <!-- Empty State (Initial) -->
+            <div id="rightSidebarEmpty" class="flex flex-col items-center justify-center h-full px-8">
+                <div class="text-center">
+                    <div class="mb-6">
+                        <img src="../assets/logo/sqr-logo-accent.svg" alt="BeautiWise" class="w-16 h-16 opacity-30 mx-auto">
+                    </div>
+                    <h3 class="text-[#68645F] text-lg font-medium mb-2 opacity-60">Ready to Discover</h3>
+                    <p class="text-[#68645F] text-sm opacity-40">Your personalized beauty recommendations will appear here</p>
+                </div>
+            </div>
+            
+            <!-- Loading State (Hidden initially) -->
+            <div id="rightSidebarLoading" class="flex flex-col items-center justify-center h-full px-8" style="display: none;">
+                <!-- Elegant Loading Animation -->
+                <div class="relative mb-8">
+                    <!-- Main logo with subtle float -->
+                    <div class="animate-float">
+                        <img src="../assets/logo/sqr-logo-accent.svg" alt="BeautiWise" class="w-20 h-20 opacity-80">
+                    </div>
+                    
+                    <!-- Orbiting dots -->
+                    <div class="absolute inset-0 animate-spin-slow">
+                        <div class="relative w-20 h-20">
+                            <div class="absolute w-2 h-2 bg-[#68645F] rounded-full opacity-60 animate-pulse" style="top: -4px; left: 50%; transform: translateX(-50%);"></div>
+                            <div class="absolute w-2 h-2 bg-[#68645F] rounded-full opacity-40 animate-pulse" style="top: 50%; right: -4px; transform: translateY(-50%); animation-delay: 0.5s;"></div>
+                            <div class="absolute w-2 h-2 bg-[#68645F] rounded-full opacity-60 animate-pulse" style="bottom: -4px; left: 50%; transform: translateX(-50%); animation-delay: 1s;"></div>
+                            <div class="absolute w-2 h-2 bg-[#68645F] rounded-full opacity-40 animate-pulse" style="top: 50%; left: -4px; transform: translateY(-50%); animation-delay: 1.5s;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loading text with typing animation -->
+                <div class="text-center">
+                    <h3 class="text-[#68645F] text-lg font-medium mb-2">Analyzing Your Beauty Profile</h3>
+                    <div class="flex items-center justify-center space-x-1 text-[#68645F] opacity-70">
+                        <span class="typing-text text-sm">Curating personalized recommendations</span>
+                        <span class="animate-pulse">...</span>
+                    </div>
+                </div>
+                
+                <!-- Progress indicators -->
+                <div class="mt-8 w-full max-w-xs">
+                    <div class="flex justify-between text-xs text-[#68645F] opacity-60 mb-2">
+                        <span>Skin Analysis</span>
+                        <span>Product Matching</span>
+                        <span>Price Check</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#68645F] rounded-full animate-progress-1"></div>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#68645F] rounded-full animate-progress-2"></div>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#68645F] rounded-full animate-progress-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Section (Hidden initially) -->
+            <div id="productsSection" class="p-8" style="display: none;">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <div class="w-6 h-6 bg-[#68645F] rounded-full flex items-center justify-center">
+                            <i class="fas fa-shopping-bag text-white text-xs"></i>
+                        </div>
+                        Recommended Products
+                    </h2>
+                </div>
+
+                <!-- Product Grid (2 per row, up to 6 products) -->
+                <div class="grid grid-cols-2 gap-4 mb-8" id="productsList">
+                    
+                    <!-- Sample Product Card 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-64 w-full">
+                            <img src="../assets/img/p-1.png" alt="CeraVe Cleanser" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#68645F]/80 via-[#68645F]/30 to-transparent"></div>
+                            
+                            <div class="absolute top-4 right-4 flex items-center">
+                                <div class="flex text-neutral-900 text-[10px] mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-[10px] text-gray-900 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full font-semibold">(2,847)</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+
+                                <h3 class="font-bold text-white text-lg mb-3 leading-tight">CeraVe Foaming Cleanser</h3>
+                                <div class="flex items-center justify-between">
+                                    <!-- Price Tag -->
+                                    <div class="text-white text-xl py-2 font-bold">
+                                        $21.28
+                                    </div>
+                                    <a href="https://amzn.to/4gMyrWV" class="text-sm text-white/90 bg-white/20 backdrop-blur-sm hover:bg-white/30 py-2 px-3 rounded-xl text-sm font-bold transition-all duration-200 hover:scale-105 shadow-lg">
+                                        Buy Now
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Product Card 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-64 w-full">
+                            <img src="../assets/img/p-2.png" alt="The Ordinary Niacinamide" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#68645F]/80 via-[#68645F]/30 to-transparent"></div>
+                            
+                            <div class="absolute top-4 right-4 flex items-center">
+                                <div class="flex text-neutral-900 text-[10px] mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-[10px] text-gray-900 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full font-semibold">(4,192)</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+
+                                <h3 class="font-bold text-white text-lg mb-3 leading-tight">The Ordinary Niacinamide 10%</h3>
+                                <div class="flex items-center justify-between">
+                                    <!-- Price Tag -->
+                                    <div class="text-white text-xl py-2 font-bold">
+                                        $7.20
+                                    </div>
+                                    <button class="text-sm text-white/90 bg-white/20 backdrop-blur-sm hover:bg-white/30 py-2 px-3 rounded-xl text-sm font-bold transition-all duration-200 hover:scale-105 shadow-lg">
+                                        Buy Now
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Product Card 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-64 w-full">
+                            <img src="../assets/img/p-3.png" alt="Paula's Choice BHA" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#68645F]/80 via-[#68645F]/30 to-transparent"></div>
+                            
+                            <div class="absolute top-4 right-4 flex items-center">
+                                <div class="flex text-neutral-900 text-[10px] mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-[10px] text-gray-900 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full font-semibold">(15,000)</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+
+                                <h3 class="font-bold text-white text-lg mb-3 leading-tight">Paula's Choice 2% BHA</h3>
+                                <div class="flex items-center justify-between">
+                                    <!-- Price Tag -->
+                                    <div class="text-white text-xl py-2 font-bold">
+                                        $32.00
+                                    </div>
+                                    <button class="text-sm text-white/90 bg-white/20 backdrop-blur-sm hover:bg-white/30 py-2 px-3 rounded-xl text-sm font-bold transition-all duration-200 hover:scale-105 shadow-lg">
+                                        Buy Now
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Product Card 4 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-64 w-full">
+                            <img src="../assets/img/p-4.png" alt="Neutrogena Moisturizer" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#68645F]/80 via-[#68645F]/30 to-transparent"></div>
+                            
+                            <div class="absolute top-4 right-4 flex items-center">
+                                <div class="flex text-neutral-900 text-[10px] mr-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-[10px] text-gray-900 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full font-semibold">(7,500)</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+
+                                <h3 class="font-bold text-white text-lg mb-3 leading-tight">Neutrogena Hydro Boost</h3>
+                                <div class="flex items-center justify-between">
+                                    <!-- Price Tag -->
+                                    <div class="text-white text-xl py-2 font-bold">
+                                        $19.97
+                                    </div>
+                                    <button class="text-sm text-white/90 bg-white/20 backdrop-blur-sm hover:bg-white/30 py-2 px-3 rounded-xl text-sm font-bold transition-all duration-200 hover:scale-105 shadow-lg">
+                                        Buy Now
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="productsEmptyState" class="col-span-2 text-center py-8" style="display: none;">
+                        <i class="fas fa-shopping-cart text-gray-300 text-3xl mb-3"></i>
+                        <p class="text-gray-500">Product recommendations will appear here after analysis</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles Section (Hidden initially) -->
+            <div id="articlesSection" class="p-6" style="display: none;">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <div class="w-6 h-6 bg-[#68645F] rounded-full flex items-center justify-center">
+                            <i class="fas fa-newspaper text-white text-xs"></i>
+                        </div>
+                        Related Articles
+                    </h2>
+                </div>
+
+                <!-- Articles List -->
+                <div class="grid grid-cols-1 gap-6" id="articlesList">
+                    
+                    <!-- Sample Article 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-32 w-full">
+                            <img src="../assets/img/img-5.jpg" alt="Article" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                            
+                            <!-- Content -->
+                            <div class="absolute inset-0 p-6 flex flex-col justify-center">
+                                <h3 class="font-bold text-white text-lg mb-3 line-clamp-2 leading-tight">The Complete Guide to Combination Skin Care</h3>
+                                <div class="flex items-center text-white/90 text-sm space-x-4">
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-clock mr-2"></i>
+                                        2min reading
+                                    </span>
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-eye mr-2"></i>
+                                        12.5K views
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Article 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-32 w-full">
+                            <img src="../assets/img/img-7.jpg" alt="Article" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                            
+                            <!-- Content -->
+                            <div class="absolute inset-0 p-6 flex flex-col justify-center">
+                                <h3 class="font-bold text-white text-lg mb-3 line-clamp-2 leading-tight">How to Apply Different Products to Different Face Zones</h3>
+                                <div class="flex items-center text-white/90 text-sm space-x-4">
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-clock mr-2"></i>
+                                        2min reading
+                                    </span>
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-eye mr-2"></i>
+                                        8.2K views
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Article 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-32 w-full">
+                            <img src="../assets/img/img-9.jpg" alt="Article" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                            
+                            <!-- Content -->
+                            <div class="absolute inset-0 p-6 flex flex-col justify-center">
+                                <h3 class="font-bold text-white text-lg mb-3 line-clamp-2 leading-tight">The Science Behind Niacinamide for Oily T-Zones</h3>
+                                <div class="flex items-center text-white/90 text-sm space-x-4">
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-clock mr-2"></i>
+                                        2min reading
+                                    </span>
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-eye mr-2"></i>
+                                        15.7K views
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Article 4 -->
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer">
+                        <div class="relative h-32 w-full">
+                            <img src="../assets/img/img-11.jpg" alt="Article" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                            
+                            <!-- Content -->
+                            <div class="absolute inset-0 p-6 flex flex-col justify-center">
+                                <h3 class="font-bold text-white text-lg mb-3 line-clamp-2 leading-tight">Common Mistakes When Treating Combination Skin</h3>
+                                <div class="flex items-center text-white/90 text-sm space-x-4">
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-clock mr-2"></i>
+                                        2min reading
+                                    </span>
+                                    <span class="flex items-center bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                        <i class="far fa-eye mr-2"></i>
+                                        9.8K views
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="articlesEmptyState" class="text-center py-8" style="display: none;">
+                        <i class="fas fa-newspaper text-gray-300 text-3xl mb-3"></i>
+                        <p class="text-gray-500">Related articles will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../scripts/multi-affiliate-manager.js"></script>
+    <script src="../scripts/chat.js"></script>
+</body>
+</html>

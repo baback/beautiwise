@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautiWise - Personalized Beauty Solutions</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo/sqr-logo-accent.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="min-h-screen">
+
+    <!-- Main Content -->
+    <div class="h-screen overflow-hidden flex">
+        
+        <!-- Left Sidebar - Fixed Sticky -->
+        <div class="w-16 bg-[#F1F0ED] flex flex-col items-center py-6 space-y-6 flex-shrink-0">
+            <!-- Logo -->
+            <div class="relative group">
+                <img src="assets/logo/sqr-logo-accent.svg" alt="BeautiWise" class="w-8 h-8 opacity-90">
+                <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                    BeautiWise
+                </div>
+            </div>
+            
+            <!-- Navigation Items -->
+            <nav class="flex flex-col space-y-4">
+                <!-- Profile -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-user text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Profile
+                    </div>
+                </div>
+                
+                <!-- New Chat -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-plus text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        New Chat
+                    </div>
+                </div>
+                
+                <!-- Explore -->
+                <div class="relative group">
+                    <button class="w-10 h-10 bg-[#68645F]/20 hover:bg-[#68645F]/30 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-compass text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Explore
+                    </div>
+                </div>
+                
+                <!-- History -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-history text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        History
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Bottom Items -->
+            <div class="flex-1 flex flex-col justify-end">
+                <!-- Help -->
+                <div class="relative group">
+                    <button class="w-10 h-10 hover:bg-[#68645F]/10 rounded-lg flex items-center justify-center transition-colors">
+                        <i class="fas fa-question-circle text-[#68645F]/70 hover:text-[#68645F] text-sm"></i>
+                    </button>
+                    <div class="absolute left-12 top-1/2 transform -translate-y-1/2 bg-neutral-950/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-50">
+                        Help
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 h-full">
+            
+            <!-- Center - Simple Input with Suggestions -->
+            <div class="col-span-2 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 flex flex-col items-center gap-4">
+                    <div class="">
+                        <img src="assets/logo/full-logo-white.svg" alt="BeautiWise" class="h-8 w-auto">
+                    </div>
+                    <p class="text-lg text-gray-600 mb-6">What's on your mind <span class="text-[#68645F] font-medium">Beauty</span>?</p>
+                </div>
+                
+                <!-- Main Textarea Input -->
+                <div id="chatBox" class="bg-white/90 backdrop-blur-sm border border-[#F1F0ED] rounded-2xl shadow-lg transition-all duration-100">
+                    <!-- Top Section - Full Width Textarea -->
+                    <div class="p-6 pb-0">
+                            <textarea 
+                                id="chatInput"
+                                placeholder="Tell me about your skin concerns or beauty goals..."
+                            class="w-full px-0 py-2 border-0 outline-none focus:outline-none focus:ring-0 focus:border-0 focus:shadow-none bg-transparent text-sm placeholder-gray-400 resize-none transition-all duration-200"
+                            rows="3"
+                            style="border: none !important; outline: none !important; box-shadow: none !important;"
+                            ></textarea>
+                    </div>
+                    
+                    <!-- Bottom Section - Actions -->
+                    <div class="flex items-center justify-between p-4 pt-2 border-t border-gray-100">
+                        <!-- Bottom Left: BeautiWise logo + Attach -->
+                        <div class="flex items-center space-x-3">
+                            <button title="Attach file" class="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-paperclip text-gray-500 text-sm"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Bottom Right: Voice + Send -->
+                        <div class="flex items-center space-x-3">
+                            <button title="Voice message" class="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-microphone text-gray-500 text-sm"></i>
+                            </button>
+                            <button id="sendButton" title="Send message" class="w-8 h-8 bg-[#68645F] hover:bg-[#5a5651] rounded-full flex items-center justify-center transition-colors">
+                                <i class="fas fa-arrow-up text-white text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+
+            <!-- Right Side - Beauty Cards Grid -->
+            <div class="col-span-3 h-full overflow-y-auto p-6 lg:p-8 bg-[#F1F0ED] rounded-l-[36px]">
+                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4">
+                    
+                    <!-- Row 1: Large card (2x2) + 2 small cards (1x1) -->
+                    <button class="large group @container relative col-span-2 row-span-2" onclick="usePrompt(this, 'I have combination skin with an oily T-zone and dry cheeks. Can you help me build a complete morning and evening skincare routine with specific product recommendations and the correct order to apply them?')">
+                        <div class="flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 p-5 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-7">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-90">
+                                <img alt="Build a complete skincare routine" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-1.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <h3 class="z-10 mt-auto text-left text-2xl font-semibold text-white @md:text-3xl">Build a complete skincare routine</h3>
+                            <div class="absolute bottom-0 left-0 h-1/4 w-full rounded-b-[28px] bg-gradient-to-t from-black/75 to-transparent"></div>
+                        </div>
+                    </button>
+
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I want to find the perfect foundation shade and undertone match for my skin. Can you guide me through determining my undertone and recommend foundations that would work well for my complexion?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Foundation matching" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-2.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Foundation matching</h3>
+                        </div>
+                    </button>
+
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I want to learn about hair care routines and what products would help with my specific hair type and concerns like dryness, damage, or lack of volume?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Hair care routine" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-3.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Hair care routine</h3>
+                        </div>
+                    </button>
+
+                    <button class="medium group @container col-span-2 row-span-1" onclick="usePrompt(this, 'I have a budget of $50-100 and want to upgrade my beauty routine. What are the most important products I should invest in first, and can you recommend specific drugstore and mid-range options?')">
+                        <div class="flex h-full w-full items-end gap-6 rounded-[28px] bg-white p-3 transition duration-200 group-hover:scale-95">
+                            <div class="relative aspect-square h-full">
+                                <div class="relative h-full w-full overflow-hidden rounded-[22px] object-cover">
+                                    <img alt="Budget beauty upgrade" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-4.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                                </div>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <h3 class="mt-auto line-clamp-2 text-xl font-semibold text-neutral-600 @lg:text-2xl">Budget beauty upgrade</h3>
+                            </div>
+                        </div>
+                    </button>
+
+                </div>
+
+                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4 mt-4">
+                    
+                    <!-- Row 2: 2 small cards + Large card (2x2) -->
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I have acne-prone skin and want to learn about ingredients that can help clear my skin without causing irritation. What products and routine would you recommend?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Acne treatment" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-5.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Acne solutions</h3>
+                        </div>
+                    </button>
+
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I have sensitive skin that reacts to many products. Can you help me identify gentle, fragrance-free products and create a minimal routine that won\'t cause irritation?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Sensitive skin care" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-6.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Sensitive skin care</h3>
+                        </div>
+                    </button>
+
+                    <button class="large group @container relative col-span-2 row-span-2" onclick="usePrompt(this, 'I want to learn how to do everyday makeup that looks natural but polished. Can you guide me through the essential products I need and the step-by-step application process for a beginner?')">
+                        <div class="flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 p-5 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-7">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-90">
+                                <img alt="Learn everyday makeup" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-7.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <h3 class="z-10 mt-auto text-left text-2xl font-semibold text-white @md:text-3xl">Learn everyday makeup</h3>
+                            <div class="absolute bottom-0 left-0 h-1/4 w-full rounded-b-[28px] bg-gradient-to-t from-black/75 to-transparent"></div>
+                        </div>
+                    </button>
+
+                    <button class="medium group @container col-span-2 row-span-1" onclick="usePrompt(this, 'I want to learn about K-beauty and Korean skincare routines. Can you explain the 10-step routine and recommend products for each step?')">
+                        <div class="flex h-full w-full items-end gap-6 rounded-[28px] bg-white p-3 transition duration-200 group-hover:scale-95">
+                            <div class="relative aspect-square h-full">
+                                <div class="relative h-full w-full overflow-hidden rounded-[22px] object-cover">
+                                    <img alt="K-beauty routine" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-8.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                                </div>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <h3 class="mt-auto line-clamp-2 text-xl font-semibold text-neutral-600 @lg:text-2xl">K-beauty routine</h3>
+                            </div>
+                        </div>
+                    </button>
+
+                </div>
+
+                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4 mt-4">
+                    
+                    <!-- Row 3: Large card (2x2) + 2 small cards (1x1) -->
+                    <button class="large group @container relative col-span-2 row-span-2" onclick="usePrompt(this, 'I want to learn about clean beauty and natural skincare ingredients. Can you help me understand which ingredients to look for and avoid, and recommend clean beauty brands?')">
+                        <div class="flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 p-5 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-7">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-90">
+                                <img alt="Clean beauty" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-9.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <h3 class="z-10 mt-auto text-left text-2xl font-semibold text-white @md:text-3xl">Clean beauty ingredients</h3>
+                            <div class="absolute bottom-0 left-0 h-1/4 w-full rounded-b-[28px] bg-gradient-to-t from-black/75 to-transparent"></div>
+                        </div>
+                    </button>
+
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I want to learn about anti-aging skincare and what ingredients I should look for. Can you recommend a routine that helps with fine lines, wrinkles, and maintaining youthful skin?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Anti-aging skincare" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-10.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Anti-aging skincare</h3>
+                        </div>
+                    </button>
+
+                    <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I want to learn about makeup for special occasions and events. Can you guide me through creating glamorous looks that photograph well and last all day?')">
+                        <div class="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-black/4 px-5 py-3 transition duration-200 group-hover:scale-95 group-hover:shadow-xl pb-5">
+                            <div class="h-full w-full overflow-hidden absolute inset-0 rounded-[28px] object-cover transition duration-200 group-hover:brightness-75">
+                                <img alt="Special occasion makeup" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-11.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-black/75 to-transparent"></div>
+                            <h3 class="z-10 mt-auto line-clamp-2 text-left text-xl font-semibold text-white @xs:text-2xl">Special events makeup</h3>
+                        </div>
+                    </button>
+
+                    <button class="medium group @container col-span-2 row-span-1" onclick="usePrompt(this, 'I want to learn about seasonal beauty trends and how to adapt my routine for different weather conditions. What changes should I make for summer vs winter skincare and makeup?')">
+                        <div class="flex h-full w-full items-end gap-6 rounded-[28px] bg-white p-3 transition duration-200 group-hover:scale-95">
+                            <div class="relative aspect-square h-full">
+                                <div class="relative h-full w-full overflow-hidden rounded-[22px] object-cover">
+                                    <img alt="Seasonal beauty" loading="lazy" decoding="async" data-nimg="fill" class="block h-full w-full object-cover transition-transform duration-300" src="assets/img/img-12.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; scale: 1.01;">
+                                </div>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <h3 class="mt-auto line-clamp-2 text-xl font-semibold text-neutral-600 @lg:text-2xl">Seasonal beauty trends</h3>
+                            </div>
+                        </div>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+
