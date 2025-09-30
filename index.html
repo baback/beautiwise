@@ -14,8 +14,8 @@
     <!-- Main Content -->
     <div class="h-screen overflow-hidden flex">
         
-        <!-- Left Sidebar - Fixed Sticky -->
-        <div class="w-16 bg-[#F1F0ED] flex flex-col items-center py-6 space-y-6 flex-shrink-0">
+        <!-- Left Sidebar - Fixed Sticky (Hidden on mobile) -->
+        <div class="hidden md:flex w-16 bg-[#F1F0ED] flex-col items-center py-6 space-y-6 flex-shrink-0">
             <!-- Logo -->
             <div class="relative group">
                 <img src="assets/logo/sqr-logo-accent.svg" alt="BeautiWise" class="w-8 h-8 opacity-90">
@@ -82,21 +82,21 @@
         </div>
         
         <!-- Main Content Area -->
-        <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 h-full">
+        <div class="flex-1 flex flex-col lg:grid lg:grid-cols-5 h-full overflow-hidden">
             
             <!-- Center - Simple Input with Suggestions -->
-            <div class="col-span-2 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div class="mb-8 flex flex-col items-center gap-4">
+            <div class="lg:col-span-2 flex flex-col justify-center py-6 md:py-12 px-4 sm:px-6 lg:px-8 lg:min-h-0">
+                <div class="mb-6 md:mb-8 flex flex-col items-center gap-3 md:gap-4">
                     <div class="">
-                        <img src="assets/logo/full-logo-white.svg" alt="BeautiWise" class="h-8 w-auto">
+                        <img src="assets/logo/full-logo-white.svg" alt="BeautiWise" class="h-6 md:h-8 w-auto">
                     </div>
-                    <p class="text-lg text-gray-600 mb-6">What's on your mind <span class="text-[#68645F] font-medium">Beauty</span>?</p>
+                    <p class="text-base md:text-lg text-gray-600 mb-4 md:mb-6">What's on your mind <span class="text-[#68645F] font-medium">Beauty</span>?</p>
                 </div>
                 
                 <!-- Main Textarea Input -->
-                <div id="chatBox" class="bg-white/90 backdrop-blur-sm border border-[#F1F0ED] rounded-2xl shadow-lg transition-all duration-100">
+                <div id="chatBox" class="bg-white/90 backdrop-blur-sm border border-[#F1F0ED] rounded-xl md:rounded-2xl shadow-lg transition-all duration-100">
                     <!-- Top Section - Full Width Textarea -->
-                    <div class="p-6 pb-0">
+                    <div class="p-4 md:p-6 pb-0">
                             <textarea 
                                 id="chatInput"
                                 placeholder="Tell me about your skin concerns or beauty goals..."
@@ -107,7 +107,7 @@
                     </div>
                     
                     <!-- Bottom Section - Actions -->
-                    <div class="flex items-center justify-between p-4 pt-2 border-t border-gray-100">
+                    <div class="flex items-center justify-between p-3 md:p-4 pt-2 border-t border-gray-100">
                         <!-- Bottom Left: BeautiWise logo + Attach -->
                         <div class="flex items-center space-x-3">
                             <button title="Attach file" class="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors">
@@ -131,8 +131,8 @@
             </div>
 
             <!-- Right Side - Beauty Cards Grid -->
-            <div class="col-span-3 h-full overflow-y-auto p-6 lg:p-8 bg-[#F1F0ED] rounded-l-[36px]">
-                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4">
+            <div class="lg:col-span-3 flex-1 h-full overflow-y-auto p-4 sm:p-6 lg:p-8 bg-[#F1F0ED] lg:rounded-l-[36px]">
+                <div class="mx-auto grid w-full max-w-[1200px] grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-fr">
                     
                     <!-- Row 1: Large card (2x2) + 2 small cards (1x1) -->
                     <button class="large group @container relative col-span-2 row-span-2" onclick="usePrompt(this, 'I have combination skin with an oily T-zone and dry cheeks. Can you help me build a complete morning and evening skincare routine with specific product recommendations and the correct order to apply them?')">
@@ -180,7 +180,7 @@
 
                 </div>
 
-                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4 mt-4">
+                <div class="mx-auto grid w-full max-w-[1200px] grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4 auto-rows-fr">
                     
                     <!-- Row 2: 2 small cards + Large card (2x2) -->
                     <button class="small group @container col-span-1 row-span-1" onclick="usePrompt(this, 'I have acne-prone skin and want to learn about ingredients that can help clear my skin without causing irritation. What products and routine would you recommend?')">
@@ -228,7 +228,7 @@
 
                 </div>
 
-                <div class="mx-auto grid aspect-[2/1] w-full max-w-[1200px] grid-cols-4 grid-rows-2 gap-4 mt-4">
+                <div class="mx-auto grid w-full max-w-[1200px] grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4 auto-rows-fr">
                     
                     <!-- Row 3: Large card (2x2) + 2 small cards (1x1) -->
                     <button class="large group @container relative col-span-2 row-span-2" onclick="usePrompt(this, 'I want to learn about clean beauty and natural skincare ingredients. Can you help me understand which ingredients to look for and avoid, and recommend clean beauty brands?')">
