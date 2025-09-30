@@ -56,11 +56,8 @@ class BeautiWiseMain {
         const message = this.chatInput.value.trim();
         if (!message) return;
 
-        // Add loading state
-        this.setLoadingState(true);
-
-        // Navigate to chat page with message
-        this.navigateToChat(message);
+        // Show waitlist modal instead of navigating
+        openWaitlistModal();
     }
 
     navigateToChat(message) {
@@ -147,6 +144,68 @@ function initializeSidebar() {
         });
     });
 }
+
+// Waitlist Modal Functions
+function openWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+}
+
+function submitWaitlist(event) {
+    event.preventDefault();
+    
+    const emailInput = document.getElementById('waitlistEmail');
+    const form = document.getElementById('waitlistForm');
+    const successMessage = document.getElementById('waitlistSuccess');
+    const email = emailInput.value;
+    
+    if (!email) return;
+    
+    // Here you would normally send to your backend/database
+    // For now, we'll just show success message
+    console.log('Waitlist email submitted:', email);
+    
+    // Store in localStorage for now
+    const waitlist = JSON.parse(localStorage.getItem('beautiwise_waitlist') || '[]');
+    waitlist.push({
+        email: email,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('beautiwise_waitlist', JSON.stringify(waitlist));
+    
+    // Show success message
+    form.classList.add('hidden');
+    successMessage.classList.remove('hidden');
+    
+    // Close modal after 3 seconds
+    setTimeout(() => {
+        closeWaitlistModal();
+        // Reset form for next time
+        setTimeout(() => {
+            form.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+            emailInput.value = '';
+        }, 300);
+    }, 3000);
+}
+
+// Make functions globally available
+window.openWaitlistModal = openWaitlistModal;
+window.closeWaitlistModal = closeWaitlistModal;
+window.submitWaitlist = submitWaitlist;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {

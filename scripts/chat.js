@@ -597,15 +597,8 @@ The products shown on the right are specifically chosen for combination skin and
         const message = this.messageInput.value.trim();
         if (!message || this.isLoading) return;
 
-        this.addUserMessage(message);
-        this.messageInput.value = '';
-        
-        // Simulate response
-        this.isLoading = true;
-        setTimeout(() => {
-            this.addBotMessage("I understand your follow-up question. Let me help you with that...");
-            this.isLoading = false;
-        }, 1000);
+        // Show waitlist modal instead of processing the message
+        openWaitlistModal();
     }
 
     formatMessage(message) {
@@ -847,6 +840,68 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('- simulateRoutine() - Add routine message and show products');
     console.log('- Keyboard shortcuts: Cmd+Shift+E (empty), Cmd+Shift+L (loading), Cmd+Shift+P (products), Cmd+Shift+R (routine)');
 });
+
+// Waitlist Modal Functions
+function openWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+}
+
+function submitWaitlist(event) {
+    event.preventDefault();
+    
+    const emailInput = document.getElementById('waitlistEmail');
+    const form = document.getElementById('waitlistForm');
+    const successMessage = document.getElementById('waitlistSuccess');
+    const email = emailInput.value;
+    
+    if (!email) return;
+    
+    // Here you would normally send to your backend/database
+    // For now, we'll just show success message
+    console.log('Waitlist email submitted:', email);
+    
+    // Store in localStorage for now
+    const waitlist = JSON.parse(localStorage.getItem('beautiwise_waitlist') || '[]');
+    waitlist.push({
+        email: email,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('beautiwise_waitlist', JSON.stringify(waitlist));
+    
+    // Show success message
+    form.classList.add('hidden');
+    successMessage.classList.remove('hidden');
+    
+    // Close modal after 3 seconds
+    setTimeout(() => {
+        closeWaitlistModal();
+        // Reset form for next time
+        setTimeout(() => {
+            form.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+            emailInput.value = '';
+        }, 300);
+    }, 3000);
+}
+
+// Make functions globally available
+window.openWaitlistModal = openWaitlistModal;
+window.closeWaitlistModal = closeWaitlistModal;
+window.submitWaitlist = submitWaitlist;
 
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
