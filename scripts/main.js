@@ -213,10 +213,47 @@ async function submitWaitlist(event) {
     }
 }
 
+// Demo Video Modal Functions
+function openDemoModal() {
+    const modal = document.getElementById('demoModal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeDemoModal() {
+    const modal = document.getElementById('demoModal');
+    const video = document.getElementById('demoVideo');
+    if (modal) {
+        modal.classList.add('hidden');
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        // Stop video by reloading iframe src
+        if (video) {
+            const src = video.src;
+            video.src = '';
+            video.src = src;
+        }
+    }
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeDemoModal();
+        closeWaitlistModal();
+    }
+});
+
 // Make functions globally available
 window.openWaitlistModal = openWaitlistModal;
 window.closeWaitlistModal = closeWaitlistModal;
 window.submitWaitlist = submitWaitlist;
+window.openDemoModal = openDemoModal;
+window.closeDemoModal = closeDemoModal;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {

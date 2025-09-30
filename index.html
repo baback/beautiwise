@@ -127,6 +127,13 @@
                     </div>
                 </div>
                 
+                <!-- Watch Demo Button -->
+                <div class="mt-4 flex justify-center">
+                    <button onclick="openDemoModal()" class="group flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-[#68645F] transition-colors">
+                        <i class="fas fa-play-circle text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Watch how it works</span>
+                    </button>
+                </div>
 
             </div>
 
@@ -332,6 +339,35 @@
         </div>
     </div>
 
+    <!-- Demo Video Modal -->
+    <div id="demoModal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeDemoModal()"></div>
+        
+        <!-- Modal -->
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="relative bg-black rounded-2xl shadow-2xl max-w-4xl w-full overflow-hidden animate-modal-in">
+                <!-- Close Button -->
+                <button onclick="closeDemoModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-colors z-10">
+                    <i class="fas fa-times text-white"></i>
+                </button>
+                
+                <!-- Video Container -->
+                <div class="relative w-full" style="padding-bottom: 56.25%;">
+                    <iframe 
+                        id="demoVideo"
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/me74sl4iDc4?enablejsapi=1"
+                        title="Beautiwise Demo"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         @keyframes modal-in {
             from {
@@ -354,7 +390,7 @@
     </style>
 
     <script src="scripts/waitlist-supabase.js"></script>
-    <script src="scripts/main.js?v=3"></script>
+    <script src="scripts/main.js?v=4"></script>
 </body>
 </html>
 
