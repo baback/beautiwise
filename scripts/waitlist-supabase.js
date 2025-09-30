@@ -1,65 +1,50 @@
-// Supabase Waitlist Integration
+// Waitlist Integration via Secure Edge Function
 class WaitlistSupabase {
     constructor() {
-        this.supabaseUrl = 'https://srhffhqehbvtpmquecuv.supabase.co';
-        this.supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyaGZmaHFlaGJ2dHBtcXVlY3V2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5MzE5MzYsImV4cCI6MjA3NDUwNzkzNn0.td7agrQiZyy5WZQd-h8Zv5WbyL-RQGv6rP81kQ_IWUY';
+        // Edge Function URL - no sensitive credentials exposed!
+        this.edgeFunctionUrl = 'https://srhffhqehbvtpmquecuv.supabase.co/functions/v1/submit-waitlist';
     }
 
     async submitEmail(email) {
         try {
-            const response = await fetch(`${this.supabaseUrl}/rest/v1/waitlist`, {
+            const response = await fetch(this.edgeFunctionUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': this.supabaseAnonKey,
-                    'Authorization': `Bearer ${this.supabaseAnonKey}`,
-                    'Prefer': 'return=minimal'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: email,
-                    source: 'website',
-                    ip_address: null, // Can be populated from server-side
-                    user_agent: navigator.userAgent
+                    email: email
                 })
             });
 
-            if (response.ok || response.status === 201) {
-                return { success: true };
-            } else if (response.status === 409) {
-                // Duplicate email
-                return { success: true, alreadyExists: true };
+            const data = await response.json();
+
+            if (response.ok) {
+                return { 
+                    success: true, 
+                    alreadyExists: data.alreadyExists || false 
+                };
             } else {
-                const error = await response.json();
-                console.error('Supabase error:', error);
-                return { success: false, error: error.message };
+                console.error('Waitlist error:', data);
+                return { 
+                    success: false, 
+                    error: data.error || 'Failed to submit' 
+                };
             }
         } catch (error) {
             console.error('Failed to submit to waitlist:', error);
-            return { success: false, error: error.message };
+            return { 
+                success: false, 
+                error: 'Network error. Please try again.' 
+            };
         }
     }
 
+    // Note: Email checking is now handled server-side for security
     async checkEmailExists(email) {
-        try {
-            const response = await fetch(
-                `${this.supabaseUrl}/rest/v1/waitlist?email=eq.${encodeURIComponent(email)}&select=id`,
-                {
-                    headers: {
-                        'apikey': this.supabaseAnonKey,
-                        'Authorization': `Bearer ${this.supabaseAnonKey}`
-                    }
-                }
-            );
-
-            if (response.ok) {
-                const data = await response.json();
-                return data.length > 0;
-            }
-            return false;
-        } catch (error) {
-            console.error('Failed to check email:', error);
-            return false;
-        }
+        // This method is no longer needed as duplicate checking
+        // is now handled securely by the Edge Function
+        return false;
     }
 }
 
