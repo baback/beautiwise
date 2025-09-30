@@ -860,42 +860,53 @@ function closeWaitlistModal() {
     }
 }
 
-function submitWaitlist(event) {
+async function submitWaitlist(event) {
     event.preventDefault();
     
     const emailInput = document.getElementById('waitlistEmail');
     const form = document.getElementById('waitlistForm');
     const successMessage = document.getElementById('waitlistSuccess');
-    const email = emailInput.value;
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const email = emailInput.value.trim();
     
     if (!email) return;
     
-    // Here you would normally send to your backend/database
-    // For now, we'll just show success message
-    console.log('Waitlist email submitted:', email);
+    // Disable form while submitting
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Joining...';
     
-    // Store in localStorage for now
-    const waitlist = JSON.parse(localStorage.getItem('beautiwise_waitlist') || '[]');
-    waitlist.push({
-        email: email,
-        timestamp: new Date().toISOString()
-    });
-    localStorage.setItem('beautiwise_waitlist', JSON.stringify(waitlist));
-    
-    // Show success message
-    form.classList.add('hidden');
-    successMessage.classList.remove('hidden');
-    
-    // Close modal after 3 seconds
-    setTimeout(() => {
-        closeWaitlistModal();
-        // Reset form for next time
-        setTimeout(() => {
-            form.classList.remove('hidden');
-            successMessage.classList.add('hidden');
-            emailInput.value = '';
-        }, 300);
-    }, 3000);
+    try {
+        // Submit to Supabase
+        const result = await window.waitlistSupabase.submitEmail(email);
+        
+        if (result.success) {
+            console.log('✅ Email submitted to waitlist:', email);
+            
+            // Show success message
+            form.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeWaitlistModal();
+                // Reset form for next time
+                setTimeout(() => {
+                    form.classList.remove('hidden');
+                    successMessage.classList.add('hidden');
+                    emailInput.value = '';
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Join Waitlist';
+                }, 300);
+            }, 3000);
+        } else {
+            throw new Error(result.error || 'Failed to submit');
+        }
+    } catch (error) {
+        console.error('Error submitting to waitlist:', error);
+        alert('Oops! Something went wrong. Please try again.');
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Join Waitlist';
+    }
 }
 
 // Make functions globally available
