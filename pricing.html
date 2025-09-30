@@ -46,35 +46,60 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pricing-reveal">
-          <!-- Business Plan -->
-          <div class="flex flex-col rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300" id="business-card">
-            <h3 class="text-sm font-medium text-neutral-300 mb-4">Business Use</h3>
-
-            <!-- Tabs -->
-            <div id="business-tabs" class="flex gap-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 mb-6">
-              <button data-plan="pro" class="flex-1 px-3 py-1.5 text-xs font-medium text-white rounded-full transition-all duration-300 bg-white/20 backdrop-blur-sm outline-none focus:outline-none">Pro</button>
-              <button data-plan="team" class="flex-1 px-3 py-1.5 text-xs font-medium text-white/70 rounded-full transition-all duration-300 hover:text-white hover:bg-white/10 outline-none focus:outline-none">Team</button>
-              <button data-plan="business" class="flex-1 px-3 py-1.5 text-xs font-medium text-white/70 rounded-full transition-all duration-300 hover:text-white hover:bg-white/10 outline-none focus:outline-none">Business</button>
-            </div>
+          <!-- Pro Plan -->
+          <div class="flex flex-col rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <h3 class="text-3xl text-white mb-6">Pro</h3>
 
             <div class="mb-6">
-              <p id="business-best-for" class="text-sm text-neutral-400 mb-3">Best for small businesses and startups</p>
-              <div id="business-original-price" class="hidden text-sm text-neutral-400 opacity-50 mb-1">
-                <span class="line-through">$25/month</span>
+              <p class="text-sm text-neutral-400 mb-3">Best for individuals and freelancers</p>
+              <div id="pro-original-price" class="hidden text-sm text-neutral-400 opacity-50 mb-1">
+                <span class="line-through">$15/month</span>
               </div>
               <div class="flex items-end gap-1">
-                <span id="business-price" class="text-4xl lg:text-5xl font-semibold text-white">$25</span>
+                <span id="pro-price" class="text-4xl lg:text-5xl font-semibold text-white">$15</span>
+                <span id="pro-period" class="text-sm text-neutral-400">/month</span>
+              </div>
+              <div id="pro-savings" class="hidden text-sm text-green-400 mt-1">
+                Save $54/year
+              </div>
+            </div>
+
+            <ul class="space-y-3 flex-1 text-sm text-neutral-200">
+              <li>1 website included</li>
+              <li>Personal use only</li>
+              <li>AI beauty recommendations</li>
+              <li>Product suggestions</li>
+            </ul>
+
+            <div class="mt-8">
+              <a href="https://app.lindo.ai/sign-in" class="inline-flex justify-center w-full px-5 py-2.5 rounded-xl bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-200">Start Free</a>
+              <p class="text-sm text-neutral-400 text-center mt-3">Cancel anytime, risk-free</p>
+            </div>
+          </div>
+
+          <!-- Business Plan -->
+          <div class="flex flex-col rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
+            <h3 class="text-3xl text-white mb-6">Business</h3>
+
+            <div class="mb-6">
+              <p class="text-sm text-neutral-400 mb-3">Best for small businesses and startups</p>
+              <div id="business-original-price" class="hidden text-sm text-neutral-400 opacity-50 mb-1">
+                <span class="line-through">$49/month</span>
+              </div>
+              <div class="flex items-end gap-1">
+                <span id="business-price" class="text-4xl lg:text-5xl font-semibold text-white">$49</span>
                 <span id="business-period" class="text-sm text-neutral-400">/month</span>
               </div>
               <div id="business-savings" class="hidden text-sm text-green-400 mt-1">
-                Save $84/year
+                Save $168/year
               </div>
             </div>
 
-            <ul id="business-features" class="space-y-3 flex-1 text-sm text-neutral-200">
-              <li>1 free websites</li>
-              <li>0 team member</li>
-              <li>Unlimited website contributors</li>
+            <ul class="space-y-3 flex-1 text-sm text-neutral-200">
+              <li>5 websites included</li>
+              <li>Up to 5 team members</li>
+              <li>Priority support</li>
+              <li>Advanced analytics</li>
             </ul>
 
             <div class="mt-8">
@@ -138,27 +163,6 @@
             </div>
           </div>
 
-          <!-- SaaS Plan -->
-          <div class="flex flex-col rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <p class="text-3xl text-white mb-6">Enterprise</p>
-
-            <p class="text-sm text-neutral-400 mb-3">Best for SaaS and web hostings</p>
-            <h4 class="text-4xl lg:text-5xl font-semibold text-white mb-6">Custom</h4>
-
-            <ul class="space-y-3 flex-1 text-sm text-neutral-200">
-              <li>White Label Platform</li>
-              <li>2k website included (up to 500k)</li>
-              <li>Unlimited reseller team members</li>
-              <li>Unlimited website contributors</li>
-              <li>Reseller API</li>
-              <li>Reseller Embed Platform</li>
-              <li>Self-hosted websites</li>
-            </ul>
-
-            <div class="mt-8">
-              <a href="#tally-open=w8KqXP&tally-layout=modal&tally-width=600" class="inline-flex justify-center w-full px-5 py-2.5 rounded-xl bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-200">Contact Us</a>
-            </div>
-          </div>
         </div>
 
         <!-- Free Tier -->
